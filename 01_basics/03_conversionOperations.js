@@ -1,13 +1,12 @@
 let score = "hitesh"
 
 //console.log(typeof score);
-//console.log(typeof(score));
+//console.log(typeof(score)); //both are correct
 
 let valueInNumber = Number(score)
-//console.log(typeof valueInNumber);
-//console.log(valueInNumber);
-
-
+//console.log(typeof valueInNumber); //output will be always  number
+//console.log(valueInNumber);  //if we try to convert string to number, then this O/P will be displayed as NaN(Not A Number)...below are the O/Ps that we got
+//input => output
 // "33" => 33
 // "33abc" => NaN
 //  true => 1; false => 0
