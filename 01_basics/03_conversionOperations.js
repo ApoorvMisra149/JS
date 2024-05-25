@@ -43,12 +43,12 @@ let str1 = "hello"
 let str2 = " hitesh"
 
 let str3 = str1 + str2
-// console.log(str3);
+// console.log(str3); // output will be hello hitesh....so we can add string like this in JS
 
 // console.log("1" + 2);
 // console.log(1 + "2");
-// console.log("1" + 2 + 2);
-// console.log(1 + 2 + "2");
+// console.log("1" + 2 + 2); // O/P will be 122. So in JS, if we give "value" before operator, then it will going to treat as a string/(or other data type) to values
+// console.log(1 + 2 + "2");  // O/P will be 32. But if "value" is coming later, then firstly it will going to do Operation then consider remaining as string/or other data type
 
 // console.log( (3 + 4) * 5 % 3);
 
