@@ -15,7 +15,7 @@ const anotherId = Symbol('123') // Symbol use to assign unique values to a varia
 console.log(id === anotherId); //here it will going to return false as the datatype of both is symbol which means they have unique value even if we assign same value
 
 // const bigNumber = 3456543576654356754n //by giving n at the last means that it is a BigInt
-
+//
 
 
 // Reference (Non primitive)
