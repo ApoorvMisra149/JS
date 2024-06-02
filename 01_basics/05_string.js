@@ -30,6 +30,6 @@ const url = "https://hitesh.com/hitesh%20choudhary"
 
 console.log(url.replace('%20', '-'))
 
-console.log(url.includes('sundar'))
+console.log(url.includes('sundar'))//gives output as true or false
 
-console.log(gameName.split('-'));
+console.log(gameName.split('-'));//Split() method takes a pattern & divides a string into an ordered list of substrings by searching for the pattern, put these substring into an array & return the array.
