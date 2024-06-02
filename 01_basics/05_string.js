@@ -17,14 +17,14 @@ console.log(gameName.charAt(2));
 console.log(gameName.indexOf('t'));
 
 const newString = gameName.substring(0, 4)
-console.log(newString);
+console.log(newString); //it will print from 0 to 3 values & not 4th value
 
 const anotherString = gameName.slice(-8, 4)
-console.log(anotherString);
+console.log(anotherString); //it will count from negative
 
 const newStringOne = "   hitesh    "
 console.log(newStringOne);
-console.log(newStringOne.trim());
+console.log(newStringOne.trim()); // to remove extra spaces before & after string
 
 const url = "https://hitesh.com/hitesh%20choudhary"
 
