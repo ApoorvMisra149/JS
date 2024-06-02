@@ -3,7 +3,7 @@ const repoCount = 50
 
 // console.log(name + repoCount + " Value");
 
-console.log(`Hello my name is ${name} and my repo count is ${repoCount}`); //you can use this method also to print variables with a text
+console.log(`Hello my name is ${name} and my repo count is ${repoCount}`); //you can use this method also to print variables with a text.The above one is a older method.
 
 const gameName = new String('hitesh-hc-com') //another method of creating a string
 
