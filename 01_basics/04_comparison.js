@@ -21,4 +21,8 @@ console.log(undefined < 0); // false
 
 // === 
 
+<<<<<<< HEAD
 console.log("2" === 2); //false- === checks the data type , as string & no. are not equal so false
+=======
+console.log("2" === 2); //false- === checks the data type , as string & no. are not equal so false
+>>>>>>> d92e7b81d188ab0c7a77a60b174258696015713b
