@@ -40,26 +40,38 @@ function loginUserMessage(username = "sam"){ //if we give the value of the name 
 
 
 
-function calculateCartPrice(val1, val2, ...num1){
-    return num1
+function calculateCartPrice(...num1){ //   3 dot ... means store all values which are being passed
+    return num1 //it will going to print all the numbers in an array
 }
+ console.log(calculateCartPrice(200, 400, 500, 2000))
 
-// console.log(calculateCartPrice(200, 400, 500, 2000))
+
+ function calculateCartPrice(val1, val2, ...num1){
+    return num1 //will going to store val1=200, val2=400 & num1=[500,2000]
+}
+ console.log(calculateCartPrice(200, 400, 500, 2000))
+
+//object in a function-----
 
 const user = {
     username: "hitesh",
     prices: 199
 }
 
+ handleObject(user)
+
 function handleObject(anyobject){
-    console.log(`Username is ${anyobject.username} and price is ${anyobject.price}`);
+    console.log(`Username is ${anyobject.username} and price is ${anyobject.price}`); //use '' to print any value of a any object.Here we have given anyobject.username & not user.username because we can pass any object of any name to that function 
 }
 
-// handleObject(user)
-handleObject({
-    username: "sam",
-    price: 399
-})
+
+// handleObject({
+//     username: "sam",
+//     price: 399
+// }) //can pass values to the function like this also
+
+
+//pass array in a function-----
 
 const myNewArray = [200, 400, 100, 600]
 
@@ -67,5 +79,5 @@ function returnSecondValue(getArray){
     return getArray[1]
 }
 
-// console.log(returnSecondValue(myNewArray));
-console.log(returnSecondValue([200, 400, 500, 1000]));
+ console.log(returnSecondValue(myNewArray)); //prints 400
+console.log(returnSecondValue([200, 400, 500, 1000])); //can pass value like this also
