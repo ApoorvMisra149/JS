@@ -63,13 +63,16 @@ const course = {
 
 // course.courseInstructor
 
-const {courseInstructor: instructor} = course
+const {courseInstructor: instructor} = course //de-structure of objects. Instead of writing course.courseInstructor again & again you can assign a new short name key & use that new key for printing
 
 // console.log(courseInstructor);
 console.log(instructor);
 
+
+//JSON values- can be either given in object form or in array form as below 2. We don't have to define any name to JSON.
+
 // {
-//     "name": "hitesh",
+//     "name": "hitesh",  
 //     "coursename": "js in hindi",
 //     "price": "free"
 // }
