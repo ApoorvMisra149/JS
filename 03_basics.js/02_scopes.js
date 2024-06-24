@@ -54,7 +54,7 @@ function addone(num){
 
 // 2.
 addTwo(5) //here it will going to give error as in this type of function declaration we are holding it in a variable also.So that varaiable should be defined first.Here It is defined in the next line so addTwo(5) should come after declaration of function. We should be careful with this type of function declaration.
-const addTwo = function(num){     //this declaration of function 
+const addTwo = function(num){     //this declaration of function is called hoisting 
     return num + 2
 }
 //variables in JS are very powerful, we can store anything even functions & objects
