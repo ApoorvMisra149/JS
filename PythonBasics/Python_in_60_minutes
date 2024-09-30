@@ -31,4 +31,20 @@ elif temperature > 20:
 else:
     print("Cold")
 
-    
+    //For loop
+    numbers = [1,2,3,4,5]
+    for item in numbers: //no need to declare item
+        print(item)
+
+//Range function
+for x in range(6)
+print(x)  //output- 1 to 5
+//The range() function returns a sequence of numbers, starting from 0 by default, and increments by 1 (by default). Note that range(6) is not the values of 0 to 6, but the values 0 to 5.
+
+number = range(5,10,2)// store number starting from 5 to 9 with a gap of 2 ...output- 5,7,9
+for x in range(5,10,2):
+
+//List, Array
+x=[1,2,3,4,5]
+x.insert(0,1)
+print(x)
