@@ -1,0 +1,194 @@
+import openpyxl
+import re
+import pandas as pd
+# save the path where the excel resides
+path=r'C:\Users\apmisra\Desktop\Results_Raw\Raw Data - Total Errors.xlsx'
+#r means that it is a Raw file & we are asking python that don't consider it as a string but as a path
+# open or Load this workbook
+wb = openpyxl.load_workbook(path)
+# Save the sheet names
+sh1=wb['Raw Data - Total Errors']
+print(sh1)
+#Static Approach - Read data of rows & columns
+first_value= sh1.cell(row=2,column=1).value
+print(first_value)
+# Dynamic Approach - Read data using loops
+row_count= sh1.max_row
+col_count= sh1.max_column
+#print(row_count,col_count)
+#Filtered_Error_Message = []
+Filtered_Error_Message = list()
+Filtered_Transaction_Name = list()
+Error_count = list()
+Error_Transaction_Merged = list()
+Error_Message_Count_Merged = list()
+#Action.c(2878) Error -35060 No matches were found for the specified query "$.data.rowTimeStamp"
+#Action.c(326) Continuing after Error -35196 HTTP Status-Code=422 (Unprocessable Entity) for "htt
+#pattern = r'^Action.Error -[0-9][0-9][0-9][0-9][0-9]$'
+pattern2 = r'^Action.*-\d{5}\)? '
+pattern = r'\[issued at .*\]'
+#for c in range(1,col_count + 1):
+for r in range(1,row_count + 1):
+        Error_Message = sh1.cell(row=r,column=8).value
+        Transaction_Name = sh1.cell(row=r,column=11).value
+       # print(Error_Message)
+       # print(Transaction_Name)
+        Error_Message=  re.sub(pattern2,'',Error_Message) 
+        Error_Message=  re.sub(pattern,'',Error_Message)
+       # x = re.findall(pattern, Error_Message)
+       # for st in x:
+        #        Error_Message = Error_Message.replace(st,'')
+       # print(Error_Message)
+       # print(x)
+       # for Error_Message in Error_Messages:
+        #      match = re.match(pattern, Error_Message)  
+         #     if not match:
+          #         Filtered_Error_Message.append(Error_Message)  
+        Filtered_Error_Message.append(Error_Message)
+        Filtered_Transaction_Name.append(Transaction_Name)
+#print(Filtered_Error_Message)
+#print(type(Filtered_Error_Message))
+wb.create_sheet('Modified_Sheet')
+wb.save(path)
+sh2=wb['Modified_Sheet']
+for k in range(len(Filtered_Transaction_Name)):
+                temp_Error_Msg=Filtered_Error_Message[int(k)]
+                temp_Tran_Name=Filtered_Transaction_Name[int(k)]
+               # print(temp_Error_Msg,temp_Tran_Name)
+                count=0
+                for m in range(len(Filtered_Error_Message)):
+                        if temp_Error_Msg == Filtered_Error_Message[int(m)] and temp_Tran_Name== Filtered_Transaction_Name[int(m)]:
+                                count=count + 1
+                Error_count.append(count)
+              #  print(count)
+index=0
+for row in sh2["A1"+":"+"A"+str(len(Filtered_Error_Message))]:
+        for cell in row:
+                cell.value = Filtered_Error_Message[index]
+                index=index+1
+index=0
+for row in sh2["B1"+":"+"B"+str(len(Filtered_Transaction_Name))]:
+        for cell in row:
+                cell.value = Filtered_Transaction_Name[index]
+                index=index+1
+index=0
+for row in sh2["C1"+":"+"C"+str(len(Error_count))]:
+        for cell in row:
+                cell.value = Error_count[index]
+                index=index+1
+index=0
+for row in sh2["D1"+":"+"D"+str(len(Filtered_Error_Message))]:
+        for cell in row:
+                cell.value = Filtered_Error_Message[index] + Filtered_Transaction_Name[index]
+                Error_Transaction_Merged.append(cell.value)
+                index=index+1
+wb.save(path)
+#print(Error_Transaction_Merged)
+wb.create_sheet('Unique_Errors')
+wb.save(path)
+sh3=wb['Unique_Errors']
+flag=0
+'''for k in range(len(Error_Transaction_Merged)-1):
+        for m in range(k+1,len(Error_Transaction_Merged)):
+                 if flag ==1:
+                        m=m-1
+                 if m<len(Error_Transaction_Merged):
+                        temp_Error_Transaction_Merged=Error_Transaction_Merged[k]
+                        print(len(Error_Transaction_Merged))
+                        print(m)
+                        if temp_Error_Transaction_Merged == Error_Transaction_Merged[m]:
+                                del Error_Transaction_Merged[m]
+                                del Filtered_Error_Message[m]
+                                del Filtered_Transaction_Name[m]
+                                del Error_count[m]
+                                flag=1
+                        else:
+                                flag=0'''
+for k in range(len(Error_Transaction_Merged)-1):
+        #for m in range(k+1,len(Error_Transaction_Merged)):
+        m=k+1
+        while(m<=len(Error_Transaction_Merged)):
+                if flag ==1:
+                        m=m-1
+                if m<len(Error_Transaction_Merged):
+                        temp_Error_Transaction_Merged=Error_Transaction_Merged[k]
+                        #print(len(Error_Transaction_Merged))
+                        #print(m)
+                        if temp_Error_Transaction_Merged == Error_Transaction_Merged[m]:
+                                del Error_Transaction_Merged[m]
+                                del Filtered_Error_Message[m]
+                                del Filtered_Transaction_Name[m]
+                                del Error_count[m]
+                                flag=1
+                        else:
+                                flag=0
+                m=m+1
+index=0
+for row in sh3["A1"+":"+"A"+str(len(Filtered_Error_Message))]:
+        for cell in row:
+                cell.value = Filtered_Error_Message[index] + " "+ "-" + str(Error_count[index]) + " "+ "instances"
+                Error_Message_Count_Merged.append(cell.value)
+                index=index+1
+index=0
+for row in sh3["B1"+":"+"B"+str(len(Filtered_Transaction_Name))]:
+        for cell in row:
+                cell.value = Filtered_Transaction_Name[index]
+                index=index+1
+wb.save(path)
+
+wb.create_sheet('Final_ErrorSheet')
+wb.save(path)
+sh4=wb['Final_ErrorSheet']
+flag=0
+for k in range(len(Filtered_Transaction_Name)-1):
+        m=k+1
+        while(m<=len(Filtered_Transaction_Name)):
+                if flag ==1:
+                        m=m-1
+                if m<len(Filtered_Transaction_Name):
+                        temp_Filtered_Transaction_Name=Filtered_Transaction_Name[k]
+                        if temp_Filtered_Transaction_Name == Filtered_Transaction_Name[m]:
+                                Error_Message_Count_Merged[k] = Error_Message_Count_Merged[k] + "\n" + "- " + Error_Message_Count_Merged[m]
+                                del Error_Message_Count_Merged[m]
+                                del Filtered_Transaction_Name[m]
+                                flag=1
+                        else:
+                                flag=0
+                m=m+1
+index=0
+for row in sh4["A1"+":"+"A"+str(len(Filtered_Transaction_Name))]:
+        for cell in row:
+                cell.value = Filtered_Transaction_Name[index]
+                index=index+1
+index=0
+for row in sh4["B1"+":"+"B"+str(len(Filtered_Transaction_Name))]:
+        for cell in row:
+                cell.value = Error_Message_Count_Merged[index]
+                index=index+1
+wb.save(path)
+pathTestResult=r'C:\Users\apmisra\Desktop\Results_Raw\TestResults.xlsx'
+wb2 = openpyxl.load_workbook(pathTestResult)
+sh6=wb2['ADC 1.3']
+row_count= sh6.max_row
+col_count= sh6.max_column
+wb2.create_sheet('Final_ErrorSheet')
+wb2.save(path)
+sh5=wb2['Final_ErrorSheet']
+index=0
+for row in sh5["A1"+":"+"A"+str(len(Filtered_Transaction_Name))]:
+        for cell in row:
+                cell.value = Filtered_Transaction_Name[index]
+                index=index+1
+index=0
+for row in sh5["B1"+":"+"B"+str(len(Filtered_Transaction_Name))]:
+        for cell in row:
+                cell.value = Error_Message_Count_Merged[index]
+                index=index+1
+wb2.save(path)
+print(col_count)
+sh6.cell(row=1,column=col_count+1).value = "Comments"
+for row in sh6["S2"+":"+"S"+str(row_count)]:
+        for cell in row:
+                #print(cell.row)
+                cell.value = "=VLOOKUP(A" + str(cell.row) + ",Final_ErrorSheet!A:B,2,FALSE)"
+wb2.save(path)
